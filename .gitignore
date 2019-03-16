@@ -1,0 +1,9 @@
+*.pyc
+*.log
+*.sublime-workspace
+*.sublime-project
+peripteras/settings/local.py
+/media
+/static
+/local
+
