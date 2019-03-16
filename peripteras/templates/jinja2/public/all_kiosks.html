@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block css_files %}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+<link rel="stylesheet" type="text/css" href="{{ static('js/libs/slick/slick.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ static('js/libs/slick/slick-theme.css') }}"/>
+
+<link rel="stylesheet" href="{{ static('css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ static('css/owl.carousel.theme.min.css') }}">
+
+<link href="{{ static('css/public/all-kiosks.css') }}" rel="stylesheet">
+{%endblock%}
+
+{% block page_title %}Όλα τα περίπτερα e-peripteras online delivery περιπτέρου{% endblock %}
+
+{% block meta_description %}online delivery{% endblock %}
+{% block keywords %}delivery, περίπτερο{% endblock %}
+
+
+{% block site_css %}
+<style type="text/css">
+	body {
+		background:url('/static/img/bg.jpg') no-repeat center center fixed;
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row">
+		
+		<div class="col-lg-12" id="all_kiosks">
+			Όλα τα περίπτερα
+		</div>
+	</div>
+	{# <div class="row">
+		<div class="col-lg-12 header border">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="pull-left"><span>Οδός περιπτέρου</span></div>
+					<!-- <div><span>Α-Ω</span></div> -->
+					<!-- <div><span>Ω-Α</span></div> -->
+				</div>
+				<div class="col-lg-2 text-center">
+					<div><span>Χρόνος</span></div>
+				</div>
+				<div class="col-lg-2 text-center">
+					<div><span>Απόσταση</span></div>
+				</div>
+				<div class="col-lg-2 text-right">
+					<div><span>Αξιολογήσεις</span></div>
+				</div>			
+			</div>
+		</div>
+	</div> #}
+	<div class="row" style="background-color: white;" >
+		<div class="owl-carousel">
+			<div > <img class="img-responsive" src="{{ static('img/slides_2nd/s1.jpg') }}"> </div>
+			<div > <img class="img-responsive" src="{{ static('img/slides_2nd/s2.jpg') }}"> </div>
+			<div > <img class="img-responsive" src="{{ static('img/slides_2nd/s3.jpg') }}"> </div>
+			<div > <img class="img-responsive" src="{{ static('img/slides_2nd/s4.jpg') }}"> </div>
+			<div > <img class="img-responsive" src="{{ static('img/slides_2nd/s5.jpg') }}"> </div>
+			<div > <img class="img-responsive" src="{{ static('img/slides_2nd/s6.jpg') }}"> </div>
+			<div > <img class="img-responsive" src="{{ static('img/slides_2nd/s7.jpg') }}"> </div>
+
+
+		</div>
+
+		{# <div class="col-lg-12">
+			<div class="sslider">
+				<div > <img class="img-responsive" src="{{ static('img/slides_2nd/s1.jpg') }}"> </div>
+				<div > <img class="img-responsive" src="{{ static('img/slides_2nd/s2.jpg') }}"> </div>
+				<div > <img class="img-responsive" src="{{ static('img/slides/4.jpg') }}"> </div>
+			</div>					
+		</div> #}
+	</div>
+	<div class="row kiosks-wrp-margin">
+		<img src="{{ static('img/loading.gif') }}" id="loading">
+		<div class="col-lg-12  kiosks-wrp paginated list-group" id="holder">
+            {% raw %}
+                <script id="kiosks" type="text/x-handlebars-template">
+	                {{#if kiosks}}
+	                    {{#each kiosks}}
+	                        <div class="list-group-item row ">
+	                        	<div class="col-sm-3 col-md-3 col-lg-3 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 ">
+	                        		<div class="kiosk-info">
+	                        			<a href="/kiosk/{{id}}">{{address}} - {{title}}</a>
+
+	                        		</div>
+	                        	</div>
+	                        	<div class="col-sm-2 col-md-2 col-lg-2 text-center gdata">
+	                        		{{formatedTime}}
+	                        	</div>
+	                        	<div class="col-sm-2 col-md-2 col-lg-2 text-center gdata">
+	                        		{{formatedDistance}} 
+	                        	</div>
+	                        	<div class="col-sm-3 col-md-3 col-lg-3 text-left g-btn">
+	                        		<a href="/kiosk/{{id}}" class="btn btn-block order-btn">Παράγγειλε</a>
+	                        	</div>	
+							</div>
+							</a>
+	                    {{/each}}
+	                {{else}}
+	                	<div class="alert alert-info">
+	                		Λυπούμαστε...<br>
+	                		Αυτήν την στιγμή δεν υπάρχει κοντινό ενεργό περίπτερο για την οδό σας.
+	                	</div>
+	                {{/if}}
+                </script>
+            {% endraw %}
+
+            {# {% raw %}
+                <script id="kiosks" type="text/x-handlebars-template">
+	                {{#if kiosks}}
+	                    {{#each kiosks}}
+	                        <div class="row extra-margin">
+								<div class="col-lg-6">
+									<div class="kiosk-avatar">
+										<img class='img-circle' src="{{imageLink}}">
+									</div>
+									<div class="kiosk-info">
+										<p>{{address}}</p>
+									</div>
+								</div>
+								<div class="col-lg-2 text-center gdata">
+									{{formatedTime}}
+								</div>
+								<div class="col-lg-2 text-center gdata">
+									{{formatedDistance}} 
+								</div>
+								<div class="col-lg-2 text-right g-btn">
+									<a href="/kiosk/{{id}}" class="btn btn-block order-btn">Παράγγειλε</a>
+								</div>			
+							</div>
+	                    {{/each}}
+	                {{else}}
+	                	<div class="alert alert-info">
+	                		Λυπούμαστε...<br>
+	                		Αυτήν την στιγμή δεν υπάρχει κοντινό ενεργό περίπτερο για την οδό σας.
+	                	</div>
+	                {{/if}}
+                </script>
+            {% endraw %} #}
+
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}
+
+{% block site_js %}
+	<script src="{{ static('js/libs/handlebars.js') }}"></script>
+	<script src="{{ static('js/handlebars_functions.js') }}"></script>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="{{ static('js/libs/slick/slick.min.js') }}"></script>
+	<script src="{{ static('js/libs/owl.carousel.min.js') }}"></script>
+	
+	<!-- <script src="{{ static('js/third-step.js') }}"></script> -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			 $('.sslider').slick({
+			  slidesToShow: 1,
+			  // slidesToScroll: 1,
+			  arrows: false,
+			  fade: true,
+			  // centerMode: true,
+			  autoplay: true,
+  			  autoplaySpeed: 1500,
+			  infinite: true,
+			  dots: true,
+			});
+			
+
+		});
+
+		$(".owl-carousel").owlCarousel({
+			dots:true,
+			loop:true,
+			items:1,
+			autoplay:true,
+			autoplaySpeed: 600,
+			autoplayTimeout: 500,
+
+		});
+
+	</script>
+{% endblock %}
+

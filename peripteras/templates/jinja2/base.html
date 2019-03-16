@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<link rel="shortcut icon" type="image/icon" href="{{ static('public/img/favicon.ico') }}"/>
+
+	<meta name="author" content="Stefanos i. Tsaklidis">
+	<meta name="description" content="{% block meta_description %}{% endblock %}">
+	<meta name="keywords" content="{% block keywords %}{% endblock %}">
+	<title>{% block page_title %}{% endblock %}</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="{{ static('css/bootstrap.min.css') }}" rel="stylesheet">
+
+	<link href="{{ static('css/base.css') }}" rel="stylesheet">
+
+	<!-- font awesome -->
+	<link href="{{ static('css/font-awesome-4.1.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+	<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+
+	<!-- font -->
+	<link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet"> 
+
+	<link rel="shortcut icon" type="image/icon" href="http://e-peripteras.gr/static/img/favicon.ico"/>
+
+
+	<!-- Custom styles for this template -->
+	<style type="text/css">
+		/* Sticky footer styles
+		-------------------------------------------------- */
+		html {
+			position: relative;
+			min-height: 100%;
+		}
+		body {
+			/* Margin bottom by footer height */
+			padding-right: 0 !important;
+			margin-bottom: 200px;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background:url('/static/img/bg.jpg') no-repeat center center fixed;
+			background-size: cover;
+			/*background: url({{ static('img/bg.jpg') }})  no-repeat center center fixed; */
+		}
+		
+		.color{
+			background-color: #EEE;
+			border-color: #EEE;
+			color: #000;
+		}
+		/*#loginErrorMsg{
+			background-color: white;
+			color: rgb(230, 83, 109);
+			border: medium none;
+			margin-bottom: 0px;
+		}
+		#loginCoolMsg{
+			background-color: white;
+			color: green;
+			border: medium none;
+			margin-bottom: 0px;
+		}*/
+
+	</style>
+	{% block site_css %}{%endblock%}
+	{% block css_files %}{%endblock%}
+
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<meta name="google-site-verification" content="4fO2P3XDx3sBYD_0B20OSlpXcMteu54HSDyKJqVv9UY" />
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113323505-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-113323505-1');
+	</script>
+
+	</head>
+
+	<body>
+
+	{% block menu %}
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand"><img src="{{ static('img/logo.png') }}"></a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/" style="color:#8B0000;">Αρχική</a></li>
+					{% if request.session['user_address'] %}
+						<li><a href="{{ url('public:all_kiosks') }}">Περίπτερα</a></li>
+					{% endif %}
+					<li><a href="/areas">Περιοχές</a></li>
+					<li><a id="how" href="{{ url('public:how') }}">Πως λειτουργεί</a></li>
+					
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					{% if request.user.is_authenticated() %}
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		                       <i class="fa fa-user"></i> {{request.user.username}} <span class="caret"></span>
+		                    </a>
+		                    <ul class="dropdown-menu">
+								{% if request.user.is_manager() %}
+									<li>
+			                            <a href="{{ url('managers:kiosk_dashboard') }}">
+			                            	<i class="fa fa-id-badge"></i> Είσοδος manager
+			                            </a>
+			                        </li>
+	                        		<li class="divider"></li>
+								{% endif %}
+
+		                        <!-- <li>
+		                            <a href=""><i class="fa fa-pencil-square-o"></i> Λογαριασμός</a>
+		                        </li> -->
+		                        <li>
+		                            <a href="{{ url('users:logout') }}"><i class="fa fa-power-off"></i> Αποσύνδεση</a>
+		                        </li>
+		                    </ul>
+						</li>
+					{% else %}
+						<li><a href="{{ url('users:register_manager') }}">Είσαι περιπτεράς?</a></li>
+						<!-- <li><a href="#" data-toggle="modal" data-target="#loginModal">Είσοδος / Εγγραφή</a></li> -->
+						<li><a href="/login/">Είσοδος / Εγγραφή</a></li>
+					{% endif %}
+					
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	</div>
+	{% endblock %}
+	<div id="contact">
+		Επικοινωνία info@e-peripteras.gr
+		<div id="social_icons">
+			<i class="fa fa-facebook" aria-hidden="true"></i>
+			<i class="fa fa-twitter" aria-hidden="true"></i>
+			<i class="fa fa-instagram" aria-hidden="true"></i>
+			<i class="fa fa-google-plus" aria-hidden="true"></i>
+		</div>
+	</div>
+	{% block content %}
+	{% endblock %}
+
+	<div id="loginModal" class="modal fade" role="dialog">
+		<div id="login-overlay" class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<div class="modal-title" id="myModalLabel">										
+					<h3>Έχεις λογαριασμό;</h3>
+					<h5>
+						Αν έχεις λογαριασμό στο e-peripteras συνδέσου τώρα, διαφορετικά κάνε την εγγραφή σου
+					</h5>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="well">
+								<form id="loginForm" method="POST" action="/login/" >
+									<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+									<div class="form-group">
+										<input type="text" class="form-control" id="username" name="username" required title="Εισάγετε το username σας" placeholder="Εισάγετε το username σας">
+										<span class="help-block"></span>
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control" placeholder="Εισάγετε τον κωδικό σας" name="password" required title="Εισάγετε τον κωδικό σας">
+										<span class="help-block"></span>
+									</div>
+									<button type="submit" class="btn btn-success btn-block">Σύνδεση</button>
+									<button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Άκυρο</button>
+								</form>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<p class="lead">Κάντε εγγραφή <span class="text-success">ΔΩΡΕΑΝ</span></p>
+							<ul class="list-unstyled" style="line-height: 2">
+								<li><span class="fa fa-check text-success"></span> Γιατί να γραφτεί 1 ?</li>
+								<li><span class="fa fa-check text-success"></span> Γιατί να γραφτεί 2 ?</li>
+								<li><span class="fa fa-check text-success"></span> Γιατί να γραφτεί 3 ?</li>
+								<li><a href="/read-more/"><u>Περισσότερα</u></a></li>
+							</ul>
+							<p><a href="#" id="register" class="btn btn-info btn-block">Ναι κάνε εγγραφή!</a></p>
+						</div>											
+					</div>
+					<div class="row">
+						<div class="lg-12">
+							<div id="loginErrorMsg" class="alert alert-danger hide">Λάθος στοιχεία</div>
+							<div id="loginCoolMsg" class="alert alert-success hide">Σενδέθηκες με επιτυχία</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+ 	<div id="RegisterModal" class="modal fade" role="dialog">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<div class="modal-title" id="myModalLabel">										
+					<h3 >Εγγραφή νέου χρήστη</h3>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-6">
+							<img src="{{ static('img/150x50.png') }}">
+							<hr>
+							<img src="{{ static('img/150x50.png') }}">
+							<hr>
+							<img src="{{ static('img/150x50.png') }}">
+						</div>
+
+						<div class="col-xs-6">
+							<div class="well">
+								<form method="post" id="registerForm" action="." role="form" enctype="multipart/form-data">
+									<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+									<input class="form-control input-md" name="username" placeholder="username" required="True" type="text">
+
+									<input class="form-control input-md" name="email" placeholder="Email" required="True" type="email">
+
+									<input class="form-control input-md" name="password" placeholder="Κωδικός" required="True" type="password">
+
+									<input class="form-control input-md" name="password2" placeholder="Κωδικός" required="True" type="password">
+
+									<button class="btn btn-success" type="submit">Εγγραφή</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="lg-12">
+							<div id="registerErrorMsg" class="alert alert-danger hide">Λάθος στοιχεία</div>
+							<div id="registerCoolMsg" class="alert alert-success hide">Η εγγραφή ολοκληρώθηκε</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<footer class="footer">
+		<div class="container-fluid" >
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<img class="img-responsive" id="footer-logo" src="{{ static('img/logo.png') }}">
+				</div>
+
+				<div class="col-lg-12 text-center" id="f_color">
+					<div class="footer-links">
+						<span><a href="{{ url('public:areas') }}">Περιοχές</a></span>
+						<span><a href="{{ url('public:faq') }}">Συχνές ερωτήσεις</a></span>
+						<span><a href="{{ url('public:terms') }}">Όροι χρήσης</a></span>
+						<span><a href="{{ url('public:contact') }}">Επικοινωνία</a></span>
+						{% if request.user.is_authenticated()%}
+							{% if manager %}
+								<span>
+									<a href="{{ url('managers:kiosk_dashboard') }}" style="color:inherit; font-style: inherit;">Είσοδος manager</a>
+								</span>
+							{% endif %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="{{ static('js/libs/bootstrap.min.js') }}"></script>
+	<!-- <script src="{{ static('js/login_register.js') }}"></script> -->
+	{% block site_js %}{% endblock %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$( "#register" ).click(function() {
+				$('#loginModal').modal('hide')
+					$('#RegisterModal').modal('show')
+			});
+
+		});
+
+	</script>
+
+	</body>
+</html>

@@ -1,0 +1,84 @@
+.wrp{
+	background-color: #fff;
+	min-height: 650px;
+	margin-top: 100px;
+	margin-bottom: 330px;
+}
+
+.left-col{
+	padding: 0px 80px;
+	border-right: 2px solid #b1b1b1;
+	margin-top: 100px;
+	min-height: 650px;
+}
+
+#loginForm input, #registerForm input{
+	border-color: #8B0000;
+	border-radius: 0px;
+	font-size: 15px;
+}
+
+#login-btn{ 
+    margin: 0px auto;
+    margin-top: 85%;
+    border-radius: 20px;
+    font-size: 17px;
+    padding-left: 23px;
+    padding-right: 23px;
+    color: #2f2f2f;
+    background-color: #fbbf58;
+    border-color: transparent;
+    -webkit-transition:all 100ms linear;
+    -moz-transition:all 100ms linear;
+    -ms-transition:all 100ms linear;
+    -o-transition:all 100ms linear;
+    transition:all 100ms linear;
+    max-width: 200px;
+}
+
+#login-btn:hover{
+    border-color:transparent; 
+    color:white;
+}
+
+#register-btn{ 
+    margin: 0px auto;
+    margin-top: 53%;
+    border-radius: 20px;
+    font-size: 17px;
+    padding-left: 23px;
+    padding-right: 23px;
+    color: #2f2f2f;
+    background-color: #fbbf58;
+    border-color: transparent;
+    -webkit-transition:all 100ms linear;
+    -moz-transition:all 100ms linear;
+    -ms-transition:all 100ms linear;
+    -o-transition:all 100ms linear;
+    transition:all 100ms linear;
+    max-width: 200px;
+}
+
+#register-btn:hover{
+    border-color:transparent; 
+    color:white;
+}
+
+.bold{
+	font-weight: bold;
+}
+
+#loginErrorMsg{
+    color: rgb(230, 83, 109);
+    border: medium none;
+    margin-bottom: 0px;
+}
+#loginCoolMsg{
+    color: green;
+    border: medium none;
+    margin-bottom: 0px;
+}
+ul {
+    list-style-type: none;
+    padding-left: 0px;
+}

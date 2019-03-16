@@ -1,0 +1,122 @@
+{% extends "manager_base.html" %}
+
+{% block menu_conttent %}
+	<li><a href="{{ url('managers:kiosk_dashboard') }}">Παραγγελίες <span class="sr-only">(current)</span></a></li>
+	<li><a href="{{ url('managers:kiosk_info') }}"">Πληροφορίες περιπτέρου</a></li>
+	<li><a href="{{ url('managers:all_items') }}">Προϊόντα</a></li>
+	<li><a href="{{ url('managers:help') }}">Βοήθεια</a></li>
+{%endblock%}
+
+{% block main_conttent %}
+
+<h1 class="page-header">Πληροφορίες παραγγελίας</h1>
+<div class="btn btn-success pull-right" id="complete">
+	Ολοκλήρωση παραγγελίας
+</div>
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<h3>Στοιχεία αποστολής:</h3>
+		<table class="table table-hover text-left">
+			<tbody>
+				<tr>
+					<td>Τηλέφωνο παραλήπτη:</td>
+					<td>{{order.mobile_number}}</td>
+				</tr>
+				<tr>
+					<td>Όνομα παραλήπτη:</td>
+					<td>{{order.first_name}}</td>
+				</tr>
+				<tr>
+					<td>Επίθετο παραλήπτη:</td>
+					<td>{{order.last_name}}</td>
+				</tr>
+				<tr>
+					<td>Οδός αποστολής: </td>
+					<td>{{order.address.street}} {{order.address.number}}, {{order.address.city}} &minus;{{order.address.region}}&minus;</td>
+				</tr>
+				<tr>	
+					<td>Σχόλια: </td>
+					{% if order.comments%}
+					<td>{{order.comments}}</td>
+					{% else %}
+					<td>&minus;</td>
+				</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<h3>Αντικείμενα προς αποστολή:</h3>
+		<table class="table table-hover text-left">
+			<tbody>
+				{% for item in order_items %}
+				<tr>
+					<td>{{item.get_item_name()}} - {{item.brand.title}}</td>
+					<td>{{item.price}}&euro;</td>
+				</tr>
+				{% endfor %}
+				<tr>
+					<td>
+						Κόστος μεταφοράς:
+					</td>
+					<td>
+						<strong>{{kiosk.delivery_fee}}&euro;</stron>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<div class="alert alert-info text-center"> 
+			Σύνολο: <strong>{{order.total_sum}}&euro;</strong>
+		</div>
+</div>
+
+
+<div id="confirm-order" class="modal fade" role="dialog">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header" id="confirm-text">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<div class="modal-title" id="myModalLabel">										
+				<h3 >Ολοκλήρωση παραγγελίας?</h3>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<a class="btn btn-success" id="finish" href="/kiosk/order/{{order.id}}/complete">Ναι</a>
+						<button class="btn btn-danger" id="cancel">
+							Άκυρο
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{%endblock%}
+
+
+{% block js_scripts %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$( "#complete" ).click(function() {
+				$('#confirm-order').modal('show')
+					
+			});
+			$( "#cancel" ).click(function() {
+				$('#confirm-order').modal('hide')
+					
+			});
+
+		});
+
+	</script>
+{% endblock %}
+
+

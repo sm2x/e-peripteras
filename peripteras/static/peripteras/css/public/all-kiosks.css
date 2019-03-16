@@ -1,0 +1,134 @@
+.wrp{
+    background-color: #fff;
+    min-height: 650px;
+    margin-top: 100px;
+    margin-bottom: 330px;
+}
+.kiosks-wrp{
+    padding: 15px;
+}
+.kiosks-wrp-margin{
+    background-color: white;
+    min-height: 250px;
+}
+
+.kiosk-avatar{
+    display: inline-block;   
+}
+
+
+.slide-wrp{
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+}
+
+#top-slider .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.header{
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    color: #515151;
+}
+
+.header div{
+    padding-left: 20px;
+    padding-right: 20px;
+    display: inline-block;
+    
+}
+
+.header div span{
+    cursor: pointer;
+}
+
+.border{
+    /*border:1px solid #D64B2F;*/
+
+}
+
+.order-btn{ 
+    margin: 0px auto;
+    border-radius: 20px;
+    font-size: 15px;
+    color: #2f2f2f;
+    background-color: #fbbf58;
+    border-color: transparent;
+/*    -webkit-transition:all 100ms linear;
+    -moz-transition:all 100ms linear;
+    -ms-transition:all 100ms linear;
+    -o-transition:all 100ms linear;
+    transition:all 100ms linear;*/
+    max-width: 140px;
+}
+
+.order-btn:hover{
+    border-color:transparent; 
+    color:white;
+}
+.extra-margin{
+	margin-top: 10px;
+}
+
+#loading{
+    display: block;
+    margin: 20px auto;
+}
+
+div.pager span {
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8;
+    text-align: center;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    margin-right: 0.5em;
+    margin-top: 10px;
+}
+
+div.pager span.active {
+    background: #c00;
+}
+
+#all_kiosks{
+    background-color: rgba(249, 191, 92, 0.95);
+    margin-top: -20px;
+    padding: 60px 130px;
+    font-size: 40px;
+    color:#814530;
+}
+
+.slick-slide img {
+    width: 60%;
+    margin: 0px auto;
+}
+.kiosk-info p {margin: 0px;}
+.kiosk-info, .gdata{
+    margin-top:10px; 
+}
+.list-group-item:nth-child(odd) {
+    background-color: #eee;
+}
+.list-group-item:hover{
+    background-color: #cfcfcf;
+    color: #e74d4d;
+}
+
+.pager{
+    margin:60px 0px; 
+}
+@media only screen and (max-device-width: 780px) {
+    #holder{
+        text-align: center;
+    }
+    #all_kiosks {
+        padding: 30px 20px;
+    }
+}

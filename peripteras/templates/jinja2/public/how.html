@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block css_files %}
+<link href="{{ static('css/public/areas.css') }}" rel="stylesheet">
+
+
+
+{%endblock%}
+
+{% block page_title %}Πώς λειτουργεί{% endblock %}
+
+{% block meta_description %}online delivery{% endblock %}
+{% block keywords %}delivery, περίπτερο{% endblock %}
+
+
+{% block site_css %}
+<style type="text/css">
+	.cnt_form{
+		background-color: #fafafa;
+		min-height: 500px;
+		padding: 60px 10px 60px 10px;
+	}
+
+	.red_star{
+		color:red;
+		font-size: 18px;
+	}
+	#how{color:#8B0000;}
+
+	
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row">
+		
+		<div class="col-lg-12" id="head_areas">
+			Πώς λειτουργεί
+		</div>
+	</div>
+
+
+
+	<div class="row cnt_form" >
+		<div class="col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 ">
+			<h3><li>Κάνεις την παραγγελία σου</li></h3>
+			<p>
+				Βάλε τη διεύθυνση σου στο πεδίο αναζήτησης και δες όλα τα περίπτερα ή mini-market που διανέμουν στην περιοχή σου. Επέλεξε το περίπτερο που σου αρέσει. Και πρόσθεσε τα προϊντα που επιθυμείς.
+			</p>
+
+			<h3><li>Στέλνουμε την παραγγελία σου στο περίπτερο</li></h3>
+			<p>
+				Μόλις ολοκληρώσεις την παραγγελία σου, αποστέλεται αυτόματα στο περίπτερο που έχεις επιλέξει. Εσύ ενημερώνεσαι ότι η παραγγελία σου εστάλη. Στη συνέχεια ο περιπτέρας ετοιμάζει την παραγγελία.
+			</p>
+			<h3>
+				<li>Η παραγγελία σας… έφτασε!</li>
+			</h3>
+			<p>
+				Η παραγγελία παραδίδεται από τον ντελιβερά στην πόρτα σου και εσύ πληρώνεις παραδοσιακά με μετρητά. Η υπηρεσία του e-peripteras.gr παρέχεται εντελώς δωρεάν!
+			</p>
+
+		</div>
+	</div>
+
+
+</div>
+
+{% endblock %}
+
+{% block site_js %}
+	<script type="text/javascript">
+
+		$(document).ready(function(){	
+			$("#navbar ul li a ").removeAttr("style");
+
+		});
+	</script>
+
+
+{% endblock %}
+

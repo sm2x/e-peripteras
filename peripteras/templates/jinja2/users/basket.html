@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block css_files %}
+<link href="{{ static('css/users/basket.css') }}" rel="stylesheet">
+
+{%endblock%}
+
+{% block page_title %}Basket page e-peripteras online delivery περιπτέρου{% endblock %}
+
+{% block meta_description %}online delivery{% endblock %}
+{% block keywords %}delivery, περίπτερο{% endblock %}
+
+
+{% block site_css %}
+<style type="text/css">
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div id="msg"></div>
+<input type="hidden" name="kiosk_id" id="kiosk_id" value="{{kiosk.id}}">
+<div class="container wrp">
+	<br>
+	<div class="row" >
+		<div class="col-lg-6 col-md-6 col-sm-6 text-center left-brd">
+			<h3>Η παραγγελία μου από:<br>{{kiosk.street}} {{kiosk.number}}</h3>
+			<div id="basket-ajax" >
+				{% raw %}
+	                <script id="items" type="text/x-handlebars-template">
+	                {{# if items}}
+	                    {{#each items}}
+		                    {{# if id}}
+		                        <div class="item">
+		                        	{{name}} &minus; {{price}}&euro; <br>
+		                        	<i class="fa fa-minus red" data-remove='{{id}}' onclick="remove_from_basket($(this).attr('data-remove'))"></i>
+		                        	<div class="times">x{{times}}</div>
+		                        	<i class="fa fa-plus green" data-add='{{id}}' onclick="plus_to_basket($(this).attr('data-add'))"></i>
+								</div>
+							{{else }}
+								<div class="item">
+		                        	{{name}} &minus; {{price}}&euro; <br>
+		                        	<div class="times">x{{times}}</div>
+								</div>
+							{{/if}}
+	                        
+	                    {{/each}}
+	                {{else}}
+	                	Το καλάθι είναι άδειο
+                   {{/if}}
+
+	                    <div class="sum">Σύνολο: {{total_sum}}&euro;</div>
+	                </script>
+	            {% endraw %}
+
+			</div>
+		</div>
+<form id="address" method="POST" action="{{ url('users:order_completed', args=[kiosk.id])}}" >
+		<div class="col-lg-6 col-md-6 col-sm-6 text-center right-brd">
+			{% if simple_user %}
+			
+				<div class="form-wrp">
+					<h3 class="text-center bold">Διεύθυνση αποστολής:</h3>
+						<div class="form-group">
+							<div class="left">Πόλη</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " name="city" required title="Εισάγετε την πόλη σας" placeholder="Εισάγετε την πόλη σας" value="{% if simple_user.addresses.city %}{{simple_user.addresses.city}}{% endif %}">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="left">Περιοχή</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε την περιοχή σας" name="region" required title="Εισάγετε την περιοχή σας" value="{% if simple_user.addresses.region %}{{simple_user.addresses.region}}{% endif %}">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="left">Οδός</div class="left">
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε την οδό σας" name="street" required title="Εισάγετε την οδό σας" value="{% if simple_user.addresses.street %}{{simple_user.addresses.street}}{% endif %}">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="left">Αριθμός</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε τον αριθμό του σπιτιού" name="area_number" required title="Εισάγετε τον αριθμό του σπιτιού" value="{% if simple_user.addresses.number %}{{simple_user.addresses.number}}{% endif %}">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="left">Τ.K.</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε τον ταχυδρομικό κώδικα" name="tk" required title="Εισάγετε τον ταχυδρομικό κώδικα" value="{% if simple_user.addresses.tk %}{{simple_user.addresses.tk}}{% endif %}">
+							</div>
+						</div>
+
+						
+
+						<hr>
+						<div class="form-wrp-right">
+							
+							<div class="form-group">
+								<div class="left">Όνομα</div>
+								<div class="right">
+									<input type="text" class="form-control input-md " placeholder="Εισάγετε το όνομά σας" name="order_firstname" required title="Εισάγετε το όνομά σας" value="{% if simple_user.first_name %}{{simple_user.first_name}}{% endif %}">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="left">Επίθετο</div>
+								<div class="right">
+									<input type="text" class="form-control input-md " placeholder="Εισάγετε το επίθετό σας" name="order_lastname" required title="Εισάγετε το επίθετό σας" value="{% if simple_user.last_name %}{{simple_user.last_name}}{% endif %}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="left">Τηλέφωνο</div>
+								<div class="right">
+									<input type="text" class="form-control input-md " placeholder="Εισάγετε το τηλέφωνό σας" name="mobile_number" required title="Εισάγετε το τηλέφωνό σας" value="{% if simple_user.mobile_number %}{{simple_user.mobile_number}}{% endif %}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<textarea class="form-control" name="comments" rows="3" placeholder="Εάν έχετε κάποια σχόλια, γράψτε τα εδώ"></textarea>
+							</div>
+						</div>
+						
+				</div>
+				<!-- <div class="form-wrp">
+					<h3 class="text-center bold">Διεύθυνση αποστολής:</h3>
+						<div class="form-group">
+							<div class="left">Πόλη</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " name="city" required title="Εισάγετε την πόλη σας" placeholder="Εισάγετε την πόλη σας" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="left">Περιοχή</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε την περιοχή σας" name="region" required title="Εισάγετε την περιοχή σας" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="left">Οδός</div class="left">
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε την οδό σας" name="street" required title="Εισάγετε την οδό σας" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="left">Αριθμός</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε τον αριθμό του σπιτιού" name="area_number" required title="Εισάγετε τον αριθμό του σπιτιού" value="">
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<div class="left">Όνομα</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε το όνομά σας" name="order_firstname" required title="Εισάγετε το όνομά σας" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="left">Επίθετο</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε το επίθετό σας" name="order_lastname" required title="Εισάγετε το επίθετό σας" value="">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="left">Τηλέφωνο</div>
+							<div class="right">
+								<input type="text" class="form-control input-md " placeholder="Εισάγετε το τηλέφωνό σας" name="mobile_number" required title="Εισάγετε το επίθετό σας" value="">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="left">Σχόλια</div>
+							<div class="right">
+								<textarea class="form-control" rows="5" name="comments"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="btn btn-primary">Αποθήκευση</div>
+						</div>						
+				</div> -->
+
+			{% endif %}
+		</div>
+	</div>	
+	<br>
+	<div class="row" >
+		<div class="col-lg-12 text-center">
+			
+				<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+				{% if total_price %}
+					<button type="submit" class="btn btn-success ">
+						Αποστολή παραγγελίας
+					</button>
+				{% else %}
+					<div class="btn btn-success disabled">
+						Αποστολή παραγγελίας
+					</div>
+				{% endif %}	
+		</div>
+	</div>
+</form>
+
+
+<br><br><br>
+</div>
+
+{% endblock %}
+
+{% block site_js %}
+	<script src="{{ static('js/libs/handlebars.js') }}"></script>
+	<script src="{{ static('js/users/send-to-basket.js') }}"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function(){	
+
+		});
+	</script>
+
+
+{% endblock %}
+

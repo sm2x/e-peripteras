@@ -1,0 +1,166 @@
+{% extends "manager_base.html" %}
+
+{% block menu_conttent %}
+	<li><a href="{{ url('managers:kiosk_dashboard') }}">Παραγγελίες <span class="sr-only">(current)</span></a></li>
+	<li><a href="{{ url('managers:kiosk_info') }}"">Πληροφορίες περιπτέρου</a></li>
+	<li class="active" ><a href="{{ url('managers:all_items') }}">Προϊόντα</a></li>
+	<li><a href="{{ url('managers:help') }}">Βοήθεια</a></li>
+{%endblock%}
+
+
+
+{% block main_conttent %}
+<style type="text/css">
+	.list-group-item{
+		border-bottom: 1px solid #868686;
+		border-top: 0px;
+		border-left:0px;
+		border-right: 0px;
+		border-radius: 0px !important;
+		margin-bottom: 5px !important;
+	}
+	a{
+		text-decoration: none;
+		color: inherit;
+	}
+	a:hover{
+		text-decoration: none;
+	}
+</style>
+
+<h1 class="page-header">
+	Όλα τα προϊόντα <a class="btn btn-success pull-right" href="{{ url('managers:item_add') }}">Προσθήκη προϊόντος</a> <br>
+	<a class="btn btn-primary pull-right" href="{{ url('managers:upload_list') }}">Ανέβασε λίστα</a>
+	<br>
+</h1>
+
+<div class="row placeholders">
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<h4>Συνολικά προϊόντα στο περίπτερο</h4>
+		<div class="top-label-text">{{items_all.count()}}</div>
+	</div>
+	<div class="col-xs-6 col-sm-3 placeholder" style="margin-left: 5px;">
+		<h4>Προσφορές στο περίπτερο</h4>
+		<div class="top-label-text">{{items_offer}}</div>
+	</div>
+
+</div>
+{% if items %}
+<h4 class="sub-header">Λίστα με προϊόντα</h4>
+<!-- <div class="table-responsive"> -->
+<input type="hidden" id='kiosk_id' value="{{kiosk.id}}">
+
+<!-- <div class="list-group" > -->
+	<div class="row list-group-item">
+		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+			<a href="/kiosk/items/all?order_by=id">
+				<strong>
+					Κωδικός <i class="fa fa-sort"></i>
+				</strong>							
+			</a>				
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+			<strong>Προϊόν</strong>							
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+			<a href="/kiosk/items/all?order_by=brand">
+				<strong>
+					Μάρκα <i class="fa fa-sort"></i>
+				</strong>							
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+			<a href="/kiosk/items/all?order_by=category">
+				<strong>
+					Κατηγορία <i class="fa fa-sort"></i>
+				</strong>
+			</a>
+		</div>
+		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">			
+			<a href="/kiosk/items/all?order_by=price">
+				<strong>
+					Τιμή <i class="fa fa-sort"></i>
+				</strong>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+		<a href="/kiosk/items/all?order_by=online_offer">
+				<strong>
+					Προσφορά <i class="fa fa-sort"></i>
+				</strong>
+			</a>
+		</div>
+	</div>
+<!-- </div> -->
+
+<ul class='list-group'>	
+	{% for item in items %}
+		<a href="{{ url('managers:item_edit', args=[item.id])}}">	
+			<div class="row list-group-item">
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					{{item.id}}				
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					{{item.title}} 
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					{{item.brand.title}}
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					{{item.category.title}}
+				</div>
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					{{item.price}}&euro;
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					{{item.is_offer()}}
+				</div>
+			</div>
+		</a>
+	{% endfor %}
+</ul>
+
+<div class="row">
+	<div class="col-lg-12 text-center">
+		{% if items.has_other_pages() %}
+			<ul class="pagination">
+				{% if items.has_previous() %}
+					<li><a href="?page={{ items.previous_page_number() }}">&laquo;</a></li>
+				{% else %}
+					<li class="disabled"><span>&laquo;</span></li>
+				{% endif %}
+
+				{% for i in items.paginator.page_range %}
+					{% if items.number == i %}
+						<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+				{% else %}
+					<li><a href="?page={{ i }}">{{ i }}</a></li>
+				{% endif %}
+				
+				{% endfor %}
+
+				{% if items.has_next() %}
+					<li><a href="?page={{ items.next_page_number() }}">&raquo;</a></li>
+				{% else %}
+					<li class="disabled"><span>&raquo;</span></li>
+
+				{% endif %}
+			</ul>
+		{% endif %}
+	</div>
+</div>
+
+
+{% else %}
+<div class="alert alert-info text-center">
+	Δεν υπάρχουν προϊόντα
+</div>
+{% endif %}
+
+
+{%endblock%}
+
+
+{% block js_scripts %}
+
+{% endblock %}

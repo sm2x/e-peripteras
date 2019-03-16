@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block css_files %}
+<link href="{{ static('css/users/complete.css') }}" rel="stylesheet">
+
+{%endblock%}
+
+{% block page_title %}Feedback e-peripteras online delivery περιπτέρου{% endblock %}
+
+{% block meta_description %}online delivery{% endblock %}
+{% block keywords %}delivery, περίπτερο{% endblock %}
+
+
+{% block site_css %}
+<link href="{{ static('css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ static('css/rating.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+{% block content %}
+<div id="msg"></div>
+<input type="hidden" name="kiosk_id" id="kiosk_id" value="{{order.kiosk.id}}">
+<div class="container wrp">
+	<br>
+
+	<div class="row" >
+		<div class="col-lg-12 text-center ">
+			<h3>Αφήστε αξιολόγηση για {{order.kiosk.title}}</h3>
+		</div>
+	</div>
+	<br><br>
+	<div class="row" >
+		<div class="col-lg-6 text-center col-lg-offset-3">
+
+			<form method="post" action="{{ url('users:add_feedback', args=[order.id]) }}" role="form" enctype="multipart/form-data">
+				<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+				<p class="text-left">Πόσο σας ικανοποίησε το περίπτερο <i>1 έως 10</i></p>
+				<div id="star-rating">
+				    <input type="radio" name="stars" class="rating" value="1" />
+				    <input type="radio" name="stars" class="rating" value="2" />
+				    <input type="radio" name="stars" class="rating" value="3" />
+				    <input type="radio" name="stars" class="rating" value="4" />
+				    <input type="radio" name="stars" class="rating" value="5" />
+				    <input type="radio" name="stars" class="rating" value="6" />
+				    <input type="radio" name="stars" class="rating" value="7" />
+				    <input type="radio" name="stars" class="rating" value="8" />
+				    <input type="radio" name="stars" class="rating" value="9" />
+				    <input type="radio" name="stars" class="rating" value="10" />
+				</div>
+				<hr>
+
+				<textarea class="form-control input-md" cols="40" id="id_comments" name="text" placeholder="Πείτε μας την γνώμη σας" rows="5"></textarea>
+
+				<hr>
+				<div class="form-group">
+					<button type="submit" class="btn btn-success">Προσθήκη</button>
+				</div>
+			</form>
+
+		</div>		
+	</div>	
+
+</div>
+
+{% endblock %}
+
+{% block site_js %}
+	<script src="{{ static('js/libs/jquery-ui.min.js') }}"></script>
+	<script src="{{ static('js/libs/rating.js') }}"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+
+			$('#star-rating').rating(function(vote, event){
+			});	
+
+		});
+	</script>
+
+
+{% endblock %}
+

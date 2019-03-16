@@ -1,0 +1,57 @@
+{% extends "manager_base.html" %}
+
+{% block menu_conttent %}
+	<li><a href="{{ url('managers:kiosk_dashboard') }}">Παραγγελίες <span class="sr-only">(current)</span></a></li>
+	<li><a href="{{ url('managers:kiosk_info') }}"">Πληροφορίες περιπτέρου</a></li>
+	<li><a href="{{ url('managers:all_items') }}">Προϊόντα</a></li>
+	<li class="active"><a href="{{ url('managers:help') }}">Βοήθεια</a></li>
+{%endblock%}
+
+
+
+
+{% block main_conttent %}
+<style type="text/css">
+
+label{
+	display: none;
+}
+input,textarea {
+	margin-bottom: : 10px;
+	margin-top: 10px;
+	vertical-align: middle;
+}
+
+ul{
+	list-style-type: none;
+	padding: 0px;
+}
+.errorlist{ 
+	background-color: #e64d4d;
+	padding: 10px;
+	color: white;
+	margin-top: 5px;
+}
+</style>
+<h1 class="page-header text-center">Ζητήστε βοήθεια</h1>
+
+<div class="row" >
+	<div class="col-lg-4 col-md-4 col-sm-4  text-left ">
+		<form method="post" action="." role="form" enctype="multipart/form-data">
+			<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+			{{support_form}}
+			<hr>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success">Αποστολή</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+{%endblock%}
+
+
+{% block js_scripts %}
+
+{% endblock %}
+

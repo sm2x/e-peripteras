@@ -1,0 +1,47 @@
+{% extends "manager_base.html" %}
+
+{% block menu_conttent %}
+	<li><a href="{{ url('managers:kiosk_dashboard') }}">Παραγγελίες <span class="sr-only">(current)</span></a></li>
+	<li><a href="{{ url('managers:kiosk_info') }}"">Πληροφορίες περιπτέρου</a></li>
+	<li><a href="{{ url('managers:all_items') }}">Προϊόντα</a></li>
+	<li><a href="{{ url('managers:help') }}">Βοήθεια</a></li>
+{%endblock%}
+
+
+
+
+{% block main_conttent %}
+<style type="text/css">
+	ul {
+	  list-style-type: none;
+	}
+</style>
+<h1 class="page-header text-center">Ανέβασε λίστα με προϊόντα</h1>
+
+<div class="row" >
+	<div class="col-lg-4 col-md-4 col-sm-4  text-left ">
+		<form method="post" action="{{ url('managers:upload_list') }}" role="form" enctype="multipart/form-data">
+			<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+			{{upload_form}}
+
+			<hr>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success">Αποθήκευση</button>
+			</div>
+		</form>
+
+	{% if saved %}
+		<div class="alert alert-info">
+			Μπήκαν {{saved}} αντικείμενα
+		</div>
+	{% endif %}
+	</div>
+</div>
+
+{%endblock%}
+
+
+{% block js_scripts %}
+
+{% endblock %}
+

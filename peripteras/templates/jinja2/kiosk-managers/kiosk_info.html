@@ -1,0 +1,87 @@
+{% extends "manager_base.html" %}
+
+{% block menu_conttent %}
+	<li><a href="{{ url('managers:kiosk_dashboard') }}">Παραγγελίες <span class="sr-only">(current)</span></a></li>
+	<li class="active"><a href="{{ url('managers:kiosk_info') }}"">Πληροφορίες περιπτέρου</a></li>
+	<li><a href="{{ url('managers:all_items') }}">Προϊόντα</a></li>
+	<li><a href="{{ url('managers:help') }}">Βοήθεια</a></li>
+{%endblock%}
+
+
+
+
+{% block main_conttent %}
+<style type="text/css">
+
+/*label{
+	display: none;
+}*/
+label{
+	display: block;
+	margin-bottom: 0px;
+	margin-top: 10px;
+	color: #565656;
+} 
+/*label[for="id_max_distance"]{
+	display: block;
+	margin-bottom: 0px;
+	margin-top: 10px;
+	font-weight: normal;
+} */
+input,textarea, select {
+	margin: 0px;
+	vertical-align: middle;
+}
+
+ul{
+	list-style-type: none;
+	padding: 0px;
+}
+.errorlist{ 
+	background-color: #e64d4d;
+	padding: 10px;
+	color: white;
+	margin-top: 5px;
+}
+
+#info-form p{
+	background-color: #f6f6f6;
+	padding: 10px;
+	margin-top: 0px;
+	border: 1px solid #dbdbdb;
+	border-radius: 3px;
+}
+label[for="image-clear_id"]{
+	display: inline;
+}
+#image-clear_id{
+
+}
+
+p a {
+	display: block;
+}
+
+</style>
+<h1 class="page-header">Επεξεργασία πληροφοριών</h1>
+
+<div class="row" >
+	<div class="col-lg-4 col-md-4 col-sm-4  text-left ">
+		<form method="post" action="/kiosk/info/" role="form" id="info-form" enctype="multipart/form-data">
+			<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+			{{kiosk_info.as_p()}}
+			<hr>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success">Αποθήκευση</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+{%endblock%}
+
+
+{% block js_scripts %}
+
+{% endblock %}
+

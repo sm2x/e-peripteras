@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+{% block css_files %}
+
+<!-- bxSlider CSS file -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+<link rel="stylesheet" type="text/css" href="{{ static('js/libs/slick/slick.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ static('js/libs/slick/slick-theme.css') }}"/>
+<link href="{{ static('css/public/home.css') }}" rel="stylesheet">
+
+{%endblock%}
+
+{% block page_title %}Αρχική e-peripteras online delivery περιπτέρου{% endblock %}
+
+{% block meta_description %}online delivery{% endblock %}
+{% block keywords %}delivery, περίπτερο{% endblock %}
+
+
+{% block site_css %}
+<style type="text/css">
+
+	
+	#first-input-wraper{
+		padding: 50px;
+		background-color: #ad1d28;
+		border:1px solid white;
+	}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid" id="section-1">
+	<div class="row" id="slogan-wrapper">
+		<div class="col-lg-12 text-center">
+			<span id="slogan">Το περίπτερο στην πόρτα σου με ένα κλικ
+			</span><br>
+			<span id="slogan_nd">Με 3 μόνο απλά βήματα!</span> 
+		</div>
+	</div>
+
+	<div class="row color" >
+		<form method="POST" action="{{ url('public:all_kiosks') }}">
+			<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+			<div class="col-lg-2 col-md-2 col-sm-2 text-center"> <!-- col -->
+				<div class="delivery-type-wrapper">
+					<input type="radio" name="d_type" value="delivery" required checked><span>Delivery</span><br>
+					<input type="radio" name="d_type" value="pickup" required><span>Pick Up</span>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-3"> <!-- col -->
+				<input type="text" id="search" name='user_address' required  placeholder="Γράψε την διεύθυνσή σου" value="{% if request.session['user_address']%} {{request.session['user_address']}} {% endif %}">
+				<span id="eg">π.χ. Όθωνος 4, Αθήνα</span>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-3 text-center"> <!-- col -->
+				<button type="submit" class="btn btn-warning" id="search-btn">Παράγγειλε τώρα</button>
+			</div>
+
+		</form>
+
+		<div class="col-lg-3 col-md-3 col-sm-4 text-left"> <!-- col -->
+			<div class="giati">
+				<span>
+					<i class="fa fa-check"></i> Πλήρωσε με μετρητά
+				</span>
+				<span>
+					<i class="fa fa-check"></i> 24 ώρες το 24ωρο
+				</span>
+				<span>
+					<i class="fa fa-check"></i> Γρήγορα και εύκολα
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid" id="section-2">
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h1 class="heading">Τι είναι το e - peripteras.gr</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4">
+			<p class="texts">
+				To e – peripteras.gr είναι το πρώτο ηλεκτρονικό περίπτερο στην Ελλάδα. Διψάτε; Είστε στο γραφείο και θέλετε τσιγάρα; Είναι Σαββατοκύριακο και βλέπετε ταινία; Γι' αυτό υπάρχει το e- peripteras.gr. Βρείτε αυτό που θέλετε 24 ώρες το 24 , 7 ημέρες την εβδομάδα με ένα κλικ.Παραγγείλετε online σε 1 μόνο λεπτό.
+			</p>
+		</div>
+		<div class="col-lg-4">
+			<p class="texts">
+				Το e-peripteras.gr μέσω του online delivery σας παρέχει την δυνατότητα να παραγγείλετε ηλεκτρονικά από το σπίτι σας ότι χρειάζεστε από το περίπτερο ή το mini-market της γειτονιά σας και να το παραλάβετε στο σπίτι σας πληρώνοντας ακριβώς ότι θα πληρώνατε παρεγγέλοντας από το τηλέφωνο. 
+			</p>
+		</div>
+		<div class="col-lg-4">
+			<p class="texts">
+				Με 3 μονο απλά βήματα τώρα μπορείς να παραγγείλεις τσιγάρα,ποτά,αναψυκτικά,ψιλικά ή ότι άλλο χρειάζεσαι και να πληρώσεις με μετρητά στην πόρτα σου. Βάλε την διεύθυνση σου, επέλεξε το περίπτερο ή το mini-market της γειτονιάς σου και παράγγειλε αυτό που θες από την άνεση του σπιτιού σου.
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid" id="section-3">
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<img id='dialekse' class="img-responsive" src="{{ static('img/dialekse.png') }}">
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 sslider">
+				{# <div> <img class="img-responsive" src="{{ static('img/slides/1.jpg') }}"> </div> #}
+				{% for n in range(34) %}
+					<div> <img class="img-responsive" src="/static/img/slides/{{n}}.jpg"> </div>
+				{% endfor %}
+
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+<div class="container-fluid" id="section-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h1 class="heading">Πληροφορίες</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<p class="apps">
+					<strong>Σύστημα επιβράβευσης</strong>
+					"Κάθε φορά που κάνεις παραγγελία, κερδίζεις πόντους"
+				</p>
+			</div>
+			<div class="col-lg-4">
+				<p class="apps">
+					<strong>Coming Soon</strong>
+					Application on 
+					AppStore - GooglePlay
+				</p>
+			</div>
+			<div class="col-lg-4">
+				<p class="apps">
+					<strong>Είσαι περιπτεράς?</strong>
+					Αν έχεις περίπτερο η mini market,
+					μπορείς εύκολα και γρήγορα με μια απλή εγγραφη
+					να το βάλεις στον κόσμο του online delivery.
+					Γιά περισσότερες πληροφορίες κανε κλικ <a href="{{ url('users:register_manager') }}">ΕΔΩ</a>
+				</p>
+			</div>
+		</div>
+
+	</div>
+	<div class="row extra-margin">
+		<div class="col-lg-12 text-center">
+			<p id="follow">Follow Us</p>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4  col-md-3 col-sm-1 col-xs-1 border"></div>
+			<div class="col-lg-4 col-md-6 col-sm-10 col-xs-10 text-center social-icons">
+				<a href="#">
+					<i class="fa fa-facebook fa-3x" aria-hidden="true"></i>
+				</a>
+				<a href="#">
+					<i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+				</a>
+				<a href="#">
+					<i class="fa fa-google-plus fa-3x" aria-hidden="true"></i>
+				</a>
+				<a href="#">
+					<i class="fa fa-youtube-play fa-3x" aria-hidden="true"></i>
+				</a>
+				<a href="#">
+					<i class="fa fa-pinterest-p fa-3x" aria-hidden="true"></i>
+				</a>
+				<a href="#">
+					<i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+				</a>
+			</div>
+			<div class="col-lg-4 col-md-3 col-sm-1 col-xs-1 border"></div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block site_js %}
+	<!-- bxSlider Javascript file -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="{{ static('js/libs/slick/slick.min.js') }}"></script>
+
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?&key=AIzaSyAp2O-PeL5sjEWf92yJF5umKMPz94_YT4Q&libraries=geometry,places"></script>
+
+	<script type="text/javascript">
+		window.onload=function(){
+
+
+		  var search = document.getElementById('search');
+		  var autocomplete = new google.maps.places.Autocomplete(search);
+
+
+		  //Add listener to detect autocomplete selection
+		    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+		        place = autocomplete.getPlace();
+
+		        from_lat = document.getElementById("from_lat").value = place.geometry.location.lat();
+		        from_long = document.getElementById("from_long").value = place.geometry.location.lng();
+
+		        // document.getElementById("lat2").value = place.geometry.location.lat();
+		        // document.getElementById("long2").value = place.geometry.location.lng();
+		    
+		        // console.log("lat:" + place.formatted_address);
+		        // console.log("lat:" + place.geometry.location.lat());
+		        // console.log("long:" + place.geometry.location.lng());
+		        
+		    });
+
+		}	
+
+		$(document).ready(function(){
+
+
+			$('.sslider').slick({
+			  autoplay: true,
+			  autoplaySpeed: 1200,
+			  dots: false,
+			  infinite: true,
+			  speed: 300,
+			  slidesToShow: 6,
+			  slidesToScroll: 1,
+			  // centerMode: true,
+			  // variableWidth: true,
+			  // responsive: [
+			  //   {
+			  //     breakpoint: 1024,
+			  //     settings: {
+			  //       slidesToShow: 3,
+			  //       slidesToScroll: 3,
+			  //       infinite: true,
+			  //       dots: true
+			  //     }
+			  //   },
+			  //   {
+			  //     breakpoint: 600,
+			  //     settings: {
+			  //       slidesToShow: 2,
+			  //       slidesToScroll: 2
+			  //     }
+			  //   },
+			  //   {
+			  //     breakpoint: 480,
+			  //     settings: {
+			  //       slidesToShow: 1,
+			  //       slidesToScroll: 1
+			  //     }
+			  //   }
+			  // ]
+			});
+			
+			$(window).on('resize', function(){
+				console.log(findBootstrapEnvironment());
+			});
+
+		});
+
+		function findBootstrapEnvironment() {
+		    var envs = ['xs', 'sm', 'md', 'lg'];
+
+		    var $el = $('<div>');
+		    $el.appendTo($('body'));
+
+		    for (var i = envs.length - 1; i >= 0; i--) {
+		        var env = envs[i];
+
+		        $el.addClass('hidden-'+env);
+		        if ($el.is(':hidden')) {
+		            $el.remove();
+		            return env;
+		        }
+		    }
+		}
+
+	</script>
+{% endblock %}
+

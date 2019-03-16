@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+{% block css_files %}
+<link href="{{ static('css/public/kiosk.css') }}" rel="stylesheet">
+
+
+<link href="{{ static('css/owl.carousel.min.css') }}" rel="stylesheet" />
+<link href="{{ static('css/owl.carousel.theme.min.css') }}" rel="stylesheet" />
+
+{%endblock%}
+
+{% block page_title %}Περίπτερο {{kiosk}}{% endblock %}
+
+{% block meta_description %}online delivery{% endblock %}
+{% block keywords %}delivery, περίπτερο{% endblock %}
+
+
+{% block site_css %}
+<style type="text/css">
+	.kiosk-head{
+		background:url('/static/img/kiosks/1.jpg') no-repeat center center;
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div id="msg"></div>
+<input type="hidden" name="kiosk_id" id="kiosk_id" value="{{kiosk.id}}">
+<div class="container wrp">
+	<div class="row" >
+		<div class="col-lg-12">
+			<div class="kiosk-head">
+				<div class="row">
+					<div class="col-lg-12 pull-left kiosk-info">
+						<img class='img-circle' src='{{kiosk.get_image_url()}}' width='100' height="100">
+						<p class="kiosk-title">{{kiosk.street}} {{kiosk.number}}, {{kiosk.city}} &minus;{{kiosk.region}}&minus;</p>
+						<p class="kiosk-sub-info">Mέχρι {{kiosk.max_distance}}χλμ</p>
+						<p class="kiosk-feedback">
+						{% if avg %}
+							{% for n in range(avg) %}
+								<i class="fa fa-star" style="color: orange;"></i>
+							{% endfor %}
+						{% else %}
+							No feedbacks						
+						{% endif %}
+						</p>
+					</div>
+				</div>
+			</div>						
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-2">
+			<h1 id="cat">Κατηγορίες</h1>
+			{% for cat in kiosk_cats %}
+				<p class="cat-list filter" id="{{cat.slug}}">{{cat.title}}</p>
+			{% endfor %}
+			{% if not kiosk_cats %}
+				<p class="cat-list">Δεν υπάρχουν κατηγορίες</p>
+			{% endif %}
+		</div>
+
+		<div class="col-lg-7">
+			<div class="row">
+				<div class="col-lg-12 head border">
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a  href="#offers" data-toggle="tab" id="filter-online">Online Προσφορές</a>
+						</li>
+						<li>
+							<a href="#feedback" data-toggle="tab">Αξιολογήσεις</a>
+						</li>
+						<li>
+							<a href="#info" data-toggle="tab">Πληροφορίες</a>
+						</li>
+						{# {% if request.user.is_authenticated() %}
+							<li>
+								<a href="#my-orders" data-toggle="tab">Οι παραγγελίες μου</a>
+							</li>
+						{% endif %} #}
+					</ul>
+				</div>	
+			</div>
+			<div class="row">
+				<div class="col-lg-12 border main">
+					<div class="tab-content ">
+
+						<div class="tab-pane active" id="offers">
+							
+							<div id="items-ajax" >
+								{% raw %}
+					                <script id="kiosk-items" type="text/x-handlebars-template">
+						                {{# if kiosk_items}}
+											<h3 id="filter-header">Τρέχουσες online προσφορές</h3>
+						                    {{#each kiosk_items}}
+						                    	{{# if onlineOffer }}
+							                    	<div class="col-lg-6 col-md-6">
+							                    		<div class="other-items">
+								                    		<i class="fa fa-tags offer-orange" ></i>
+								                    		Προσφορά
+								                    		<span 	class="pull-right price-wrp"
+								                    				onclick="plus_to_basket($(this).attr('id'))"
+								                    				title="Προσθήκη στο καλάθι" 
+								                        			id={{id}}>
+
+					                    						<i class="fa fa-shopping-cart"></i>
+						                        				{{price}} &euro;
+						                        			</span>
+						                        			<div class="offer-info">
+						                        				{{brand}} {{name}} 
+						                        			</div>
+							                    		</div>
+							                    	</div>
+							                    {{else}}
+							                    	<div class="col-lg-6 col-md-6">
+							                    		<div class="other-items">
+								                    		<span 	class="pull-right price-wrp"
+								                    				onclick="plus_to_basket($(this).attr('id'))"
+								                    				title="Προσθήκη στο καλάθι" 
+								                        			id={{id}}>
+
+					                    						<i class="fa fa-shopping-cart"></i>
+						                        				{{price}} &euro;
+						                        			</span>
+						                        			<div class="no-offer-info">
+						                        				{{brand}} {{name}} 
+						                        			</div>
+							                    		</div>
+							                    	</div>
+							                    {{/if}}
+				
+						                    {{/each}}
+						                {{else}}
+						                	<div class="alert alert-info">
+						                		Δεν βρέθηκε κάτι...
+						                	</div>
+					                   {{/if}}
+					                </script>
+					            {% endraw %}
+							</div>
+						</div> <!-- first tab -->
+
+						<div class="tab-pane" id="feedback">
+							<h3 >Τι είπαν οι άλλοι...</h3>
+							{% if feedbacks %}
+								{% for fd in feedbacks%}
+									<div class="other-items text-justify">
+
+										{% for n in range(fd.stars) %}
+											<i class="fa fa-star" style="color: orange;"></i>
+										{% endfor %}
+										<div class="pull-right">
+											{{fd.order.simple_user.get_full_name()}} &minus; {{fd.created_on.strftime('%d-%m-%Y')}}
+										</div>
+										<br><br>
+										{{fd.text}}
+										
+
+									</div>
+								{% endfor %}
+							{% else %}
+								<div class="alert alert-info">
+									Δεν έχουν γραφτεί αξιολογήσεις.
+								</div>
+							{% endif %}
+
+						</div> <!-- seconf tab -->
+
+						<div class="tab-pane" id="info">
+							<h3>Πληροφορίες για το περίπτερο</h3>
+							<div class="col-lg-6 col-md-6">
+								<div class="other-items">
+									Οδός: {{kiosk.street}} {{kiosk.number}}, {{kiosk.city}} &minus;{{kiosk.region}}&minus;
+								</div>
+							</div>
+
+							<div class="col-lg-6 col-md-6">
+
+								<div class="other-items">
+									Τηλέφωνο: {{kiosk.phone_number}}
+								</div>
+							</div>
+
+							<div class="col-lg-12 col-md-12 text-center">
+								<div class="other-items">
+									{% if kiosk.info%}
+										{{kiosk.info}}
+									{% else %}
+										Δεν έχουν συμπληρωθεί έξτρα πληροφορίες.
+									{% endif %}
+								</div>
+							</div>
+
+
+						</div> <!-- third tab -->
+
+						{% if request.user.is_authenticated() %}
+							<div class="tab-pane" id="my-orders">				
+
+								{% for order in simple_user.orders.all() %}
+									<div class="other-items">
+										{{order.created_on.strftime('%Y-%m-%d')}} &minus; {{order.total_sum}}&euro;
+									</div>
+								{% endfor %}
+
+							</div> <!-- forth tab -->
+						{% endif %}
+
+					</div>
+					
+					<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" id="csrf">
+				</div><!-- border main -->
+				<br><br>
+			</div> <!-- row -->
+		</div>
+
+		<div class="col-lg-3">
+			<div class="order-info border">
+				<p class="order-info-head">
+					Η παραγγελία σου
+				</p>
+				<p class="order-info-head">
+					{% if request.session['city'] %}
+						{{request.session['city']}}
+					{% endif %}
+					{% if request.session['area'] %}
+						{{request.session['area']}}
+					{% endif %}
+					{% if request.session['street'] %}
+						{{request.session['street']}}
+					{% endif %}
+					{% if request.session['area_number'] %}
+						{{request.session['area_number']}}
+					{% endif %}
+
+				</p>
+				{% if request.user.is_authenticated() %}
+					<p class="user-addr">
+						{% if simple_user.addresses %}
+							{{simple_user.addresses.street}}
+							{{simple_user.addresses.city}}
+							-{{simple_user.addresses.region}}-
+							{{simple_user.addresses.street}}
+						{% else %}
+							Η διεύθυνση θα σου ζητηθεί πριν την ολοκλήρωση
+						{% endif %}
+
+					</p>
+
+				{% endif %}
+
+				<hr>
+				<div id="basket-ajax" >
+					{% raw %}
+		                <script id="items" type="text/x-handlebars-template">
+		                {{# if items}}
+		                    {{#each items}}
+		                    	{{# if id}}
+			                        <div class="item">
+			                        	{{name}} &minus; {{price}}&euro; <br>
+			                        	<i class="fa fa-minus red" data-remove='{{id}}' onclick="remove_from_basket($(this).attr('data-remove'))"></i>
+			                        	<div class="times">x{{times}}</div>
+			                        	<i class="fa fa-plus green" data-add='{{id}}' onclick="plus_to_basket($(this).attr('data-add'))"></i>
+									</div>
+								{{else }}
+									<div class="item">
+			                        	{{name}} &minus; {{price}}&euro; <br>
+			                        	<div class="times">x{{times}}</div>
+									</div>
+								{{/if}}
+		                    {{/each}}
+		                {{else}}
+		                	<p id="empty-basket"> Επέλεξε προϊόντα από τις κατηγορίες ή τις προσφορές στα αριστερά.</p>
+	                   {{/if}}
+
+		                    <div class="sum">Σύνολο: {{total_sum}}&euro;</div>
+		                </script>
+		            {% endraw %}
+
+				</div>
+				<div class="alert">
+					
+				</div>
+				<a href="{{ url('users:basket', args=[kiosk.id])}}" id="continue-btn">Συνέχεια</a>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+{% endblock %}
+
+{% block site_js %}
+	<script src="{{ static('js/libs/handlebars.js') }}"></script>
+	<script src="{{ static('js/libs/owl.carousel.min.js') }}"></script>
+	<script src="{{ static('js/users/send-to-basket.js') }}"></script>
+	<script src="{{ static('js/users/filter-items.js') }}"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function(){	
+
+		});
+	</script>
+
+
+{% endblock %}
+

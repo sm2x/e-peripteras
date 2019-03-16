@@ -1,0 +1,105 @@
+{% extends "manager_base.html" %}
+
+{% block menu_conttent %}
+	<li class="active"><a href="{{ url('managers:kiosk_dashboard') }}">Παραγγελίες <span class="sr-only">(current)</span></a></li>
+	<li><a href="{{ url('managers:kiosk_info') }}"">Πληροφορίες περιπτέρου</a></li>
+	<li><a href="{{ url('managers:all_items') }}">Προϊόντα</a></li>
+	<li><a href="{{ url('managers:help') }}">Βοήθεια</a></li>
+{%endblock%}
+
+
+
+{% block main_conttent %}
+
+<input type="hidden" id='kiosk_id' value="{{kiosk.id}}">
+<h1 class="page-header">Διαχειριστικό μενού παραγγελιών</h1>
+
+<div class="row placeholders">
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<h4>Παραγγελίες σε αναμονή</h4>
+		<div class="top-label-text">{{orders.count()}}</div>
+	</div>
+	<!-- <div class="col-xs-6 col-sm-3 placeholder">
+		<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+		<h4>Label</h4>
+		<span class="text-muted">Something else</span>
+	</div>
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+		<h4>Label</h4>
+		<span class="text-muted">Something else</span>
+	</div>
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+		<h4>Label</h4>
+		<span class="text-muted">Something else</span>
+	</div> -->
+</div>
+{% if orders %}
+<h2 class="sub-header">Παραγγελίες</h2>
+<!-- <div class="table-responsive"> -->
+
+
+<div class="list-group" >
+	<a href="#" class="list-group-item">
+		<div class="row">
+			<div class="col-lg-1">
+				<strong>A/A</strong>				
+			</div>
+			<div class="col-lg-4">
+				<strong>Οδός</strong>							
+			</div>
+			<div class="col-lg-2">
+				<strong>Όνομα</strong>
+			</div>
+			<div class="col-lg-3">
+				<strong>Ημερομηνία</strong>
+			</div>
+			<div class="col-lg-1">
+				<strong>Σύνολο</strong>
+			</div>
+		</div>
+	</a>
+</div>
+{% else %}
+<div class="alert alert-info text-center">
+	Δεν υπάρχουν παραγγελίες
+</div>
+{% endif %}
+
+
+<div id="order-ajax">
+
+	{% raw %}
+	<script id="orders-items" type="text/x-handlebars-template">
+		{{#each orders}}
+		<a href="/kiosk/view/order/{{orderId}}" class="list-group-item">
+			<div class="row">
+				<div class="col-lg-1">
+					{{math @index "+" 1}}				
+				</div>
+				<div class="col-lg-4">
+					{{street}} {{number}} {{city}}
+				</div>
+				<div class="col-lg-2">
+					{{fullName}}
+				</div>
+				<div class="col-lg-3">
+					{{created}}
+				</div>
+				<div class="col-lg-1">
+					{{totalSum}}&euro;
+				</div>
+			</div>
+		</a>
+		{{/each}}
+	</script>
+	{% endraw %}
+</div>
+
+{%endblock%}
+
+
+{% block js_scripts %}
+	<script src="{{ static('js/kiosk-managers/get-orders.js') }}"></script>
+{% endblock %}

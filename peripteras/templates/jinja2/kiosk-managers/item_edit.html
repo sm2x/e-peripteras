@@ -1,0 +1,116 @@
+{% extends "manager_base.html" %}
+
+{% block menu_conttent %}
+	<li><a href="{{ url('managers:kiosk_dashboard') }}">Παραγγελίες <span class="sr-only">(current)</span></a></li>
+	<li><a href="{{ url('managers:kiosk_info') }}"">Πληροφορίες περιπτέρου</a></li>
+	<li><a href="{{ url('managers:all_items') }}">Προϊόντα</a></li>
+	<li><a href="{{ url('managers:help') }}">Βοήθεια</a></li>
+{%endblock%}
+
+
+
+
+{% block main_conttent %}
+<style type="text/css">
+
+label{
+	display: none;
+}
+input,select {
+	margin-bottom: : 10px;
+	margin-top: 10px;
+	vertical-align: middle;
+}
+#id_online_offer{
+	margin: 0px;
+}
+ul{
+	list-style-type: none;
+	padding: 0px;
+}
+.errorlist{ 
+	background-color: #e64d4d;
+	padding: 10px;
+	color: white;
+	margin-top: 5px;
+}
+</style>
+<h1 class="page-header">Επεξεργασία προϊόντος
+<div class="btn btn-danger pull-right" id="delete">Διαγραφή προϊόντος</div>
+</h1>
+
+<div class="row" >
+	<div class="col-lg-4 col-md-4 col-sm-4  text-left ">
+		<form method="post" action="{{ url('managers:item_edit', args=[item.id])}}" role="form" enctype="multipart/form-data">
+			<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+			{% for field in item_edit %}
+
+				{% if field.name == 'online_offer'%}
+					<hr>
+					Είναι σε προσφορά:
+					<select id="id_online_offer" name="online_offer">
+						<option value="--">--</option>
+						<option value="True">Ναι</option>
+						<option value="False">Όχι</option>
+					</select>
+				{% else %}
+					{{field}}
+				{% endif %}
+
+
+
+			{% endfor %}
+			<hr>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success">Αποθήκευση</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+<div id="confirm-delete" class="modal fade" role="dialog">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header" id="confirm-text">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<div class="modal-title" id="myModalLabel">										
+				<h3 >Διαγραφή προϊόντος?</h3>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<a class="btn btn-success" href="{{ url('managers:item_delete', args=[item.id])}}">Ναι</a>
+						<button class="btn btn-danger" id="cancel">
+							Άκυρο
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{%endblock%}
+
+
+
+{% block js_scripts %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$( "#delete" ).click(function() {
+				$('#confirm-delete').modal('show')
+					
+			});
+			$( "#cancel" ).click(function() {
+				$('#confirm-delete').modal('hide')
+					
+			});
+
+		});
+
+	</script>
+{% endblock %}

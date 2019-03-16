@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% block css_files %}
+<link href="{{ static('css/public/register-manager.css') }}" rel="stylesheet">
+<link href="{{ static('css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css">
+
+{%endblock%}
+
+{% block page_title %}Εγγραφή περιπτερά e-peripteras online delivery περιπτέρου{% endblock %}
+
+{% block meta_description %}online delivery{% endblock %}
+{% block keywords %}delivery, περίπτερο{% endblock %}
+
+
+{% block site_css %}
+<style type="text/css">
+	body {
+		background:url('/static/img/bg.jpg') no-repeat center center fixed;
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container wrp">
+	<div class="row" >
+		<div class="col-lg-12 col-md-12">
+			<div class="row">
+				<div class="col-lg-6 left-col">
+					<h3 class="text-center bold">Εγγραφη περιπτέρου</h3>
+					<h5 class="text-center bold">Στοιχεία διαχειριστή</h5>
+					<form method="post" id="registerForm" action="{{ url('users:register_manager')}}" role="form" enctype="multipart/form-data">
+						<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+						<div class="form-group">	
+							<input class="form-control input-lg" name="first_name" placeholder="Όνομα" required="True" type="text">
+							{% if user_form %}
+							{% if user_form.first_name.errors%}
+							<div class="alert alert-danger">
+								{{user_form.first_name.errors}}
+							</div>
+							{% endif %}
+							{% endif %}
+						</div>
+
+						<div class="form-group">	
+							<input class="form-control input-lg" name="last_name" placeholder="Επίθετο" required="True" type="text">
+							{% if user_form %}
+							{% if user_form.last_name.errors%}
+							<div class="alert alert-danger">
+								{{user_form.last_name.errors}}
+							</div>
+							{% endif %}
+							{% endif %}
+						</div>
+
+						<div class="form-group">	
+							<input class="form-control input-lg" name="username" placeholder="Username" required="True" type="text">
+							{% if user_form %}
+							{% if user_form.username.errors%}
+							<div class="alert alert-danger">
+								{{user_form.username.errors}}
+							</div>
+							{% endif %}
+							{% endif %}
+						</div>
+
+						<div class="form-group">
+							<input class="form-control input-lg" name="email" placeholder="Email" required="True" type="email">
+							{% if user_form %}
+							{% if user_form.email.errors%}
+							<div class="alert alert-danger">
+								{{user_form.email.errors}}
+							</div>
+							{% endif %}
+							{% endif %}
+						</div>
+
+						<div class="form-group">
+							<input class="form-control input-lg" id='id_birth_date' name="birth_date" placeholder="Ημερομηνία γέννησης" required="True" type="date">
+							{% if manager_form.birth_date.errors%}
+							<div class="alert alert-danger">
+								{{manager_form.birth_date.errors}}
+							</div>
+							{% endif %}
+						</div>
+
+						<div class="form-group">
+							<input class="form-control input-lg" name="mobile_number" placeholder="Τηλέφωνο επικοινωνίας" required="True" type="text">
+							{% if manager_form.mobile_number.errors%}
+							<div class="alert alert-danger">
+								{{manager_form.mobile_number.errors}}
+							</div>
+							{% endif %}
+						</div>
+
+
+						<div class="form-group">
+							<input class="form-control input-lg" name="password" placeholder="Κωδικός" required="True" type="password">
+							{% if user_form %}
+							{% if user_form.password.errors%}
+							<div class="alert alert-danger">
+								{{user_form.password.errors}}
+							</div>
+							{% endif %}
+							{% endif %}
+						</div>
+						
+						<div class="form-group">
+							<input class="form-control input-lg" name="password2" placeholder="Επανάληψη κωδικού" required="True" type="password">
+							{% if user_form %}
+							{% if user_form.password2.errors%}
+							<div class="alert alert-danger">
+								{{user_form.password2.errors}}
+							</div>
+							{% endif %}
+							{% endif %}
+						</div>
+						<hr>
+						<h5 class="text-center bold">Στοιχεία περιπτέρου / mini-market</h5>
+						<div class="form-group">
+							<input class="form-control input-lg" name="title" placeholder="Επωνυμία" required="True" type="text">
+							{% if kiosk_form.title.errors%}
+							<div class="alert alert-danger">
+								{{kiosk_form.title.errors}}
+							</div>
+							{% endif %}
+						</div>
+						<div class="form-group">
+							<input class="form-control input-lg" name="street" placeholder="Οδός" required="True" type="text">
+							{% if kiosk_form.street.errors%}
+							<div class="alert alert-danger">
+								{{kiosk_form.street.errors}}
+							</div>
+							{% endif %}
+						</div>
+
+						<div class="form-group">
+							<input class="form-control input-lg" name="number" placeholder="Αριθμός" required="True" type="text">
+							{% if kiosk_form.number.errors%}
+							<div class="alert alert-danger">
+								{{kiosk_form.number.errors}}
+							</div>
+							{% endif %}
+						</div>
+
+						<div class="form-group">
+							<input class="form-control input-lg" name="city" placeholder="Πόλη" required="True" type="text">
+							{% if kiosk_form.city.errors%}
+							<div class="alert alert-danger">
+								{{kiosk_form.city.errors}}
+							</div>
+							{% endif %}
+						</div>
+
+						<div class="form-group">
+							<input class="form-control input-lg" name="tk" placeholder="Ταχ.Κώδικας" required="True" type="text">
+							{% if kiosk_form.tk.errors%}
+							<div class="alert alert-danger">
+								{{kiosk_form.tk.errors}}
+							</div>
+							{% endif %}
+						</div>
+
+						<div class="form-group text-center">
+							<label class="checkbox-inline">Αποδέχομαι τους <a href="{{ url('public:terms') }}">όρους χρήσης</a></label>
+							<input type="checkbox" required style="vertical-align: bottom;">
+							
+						</div>
+
+						<button class="btn btn-success btn-block" id="register-btn" type="submit">Εγγραφή</button>
+					</form>
+					<br><br><br><br><br>
+				</div>
+
+
+
+
+				<div class="col-lg-6 left-col text-justify">
+					<h3 class="text-center bold">Έχεις περίπτερο;</h3>
+
+					Τώρα το περίπτερό σου μπορεί να είναι προσβάσιμο μέσω του e-peripteras.gr , δίνοντάς σου τη δυνατότητα να δέχεσαι παραγγελίες μέσω internet, και επιτρέποντας σου να παίρνεις  παραγγελίες από χιλιάδες κόσμο από όποιες περιοχές έχεις εσύ διαλέξει. <br><hr>
+
+					<ul>
+						<li>&#9679;  Εντελώς δωρεάν.</li>
+						<li>&#9679;  24 ώρες το 24ωρο.</li>
+						<li>&#9679;  Χωρίς extra χρέωση στο περίπτερο σου η τον πελάτη.</li>
+						<li>&#9679;  Διαλέγεις εσύ τα προϊόντα που θες να βάλεις.</li>
+						<li>&#9679;  Εύκολα και γρήγορα.</li>
+					</ul><br>
+					Το e-peripteras.gr σου παρέχει έτοιμη λίστα προϊόντων, μέσα απ την οποία διαλέγεις τα προϊόντα που θέλεις με την ανάλογη τιμή της επιλογής σου. <br>
+					Κάνε εγγραφή τώρα και δώσε την δυνατότητα σε όλο τον κόσμο να δει το περίπτερο σου.
+
+					<br><br><br><br><br>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+</div>
+
+{% endblock %}
+
+{% block site_js %}
+<script src="{{ static('js/libs/jquery-ui.min.js') }}"></script>
+<script src="{{ static('js/libs/jquery.ui.datepicker-it.js') }}"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+ 
+			$( "#id_birth_date" ).datepicker({
+				dateFormat: 'yy-mm-dd',
+				changeMonth: true,
+				changeYear: true,
+				yearRange: "-80:+0",
+			});
+
+		});
+</script>
+{% endblock %}
+

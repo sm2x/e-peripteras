@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block css_files %}
+<link href="{{ static('css/public/login.css') }}" rel="stylesheet">
+
+{%endblock%}
+
+{% block page_title %}{{title}} e-peripteras online delivery περιπτέρου{% endblock %}
+
+{% block meta_description %}online delivery{% endblock %}
+{% block keywords %}delivery, περίπτερο{% endblock %}
+
+
+{% block site_css %}
+<style type="text/css">
+	body {
+		background:url('/static/img/bg.jpg') no-repeat center center fixed;
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container wrp">
+	<div class="row" >
+		<br><br><br><br>
+		<div class="col-lg-12 col-md-12 text-center">
+			<div class="alert alert-success">
+				{{msg}} 
+			</div>
+			
+		</div>
+
+	</div>
+
+	
+</div>
+
+{% endblock %}
+
+{% block site_js %}
+	<script type="text/javascript">
+
+		$(document).ready(function(){	
+			$("#navbar ul li a ").removeAttr("style");
+		});
+	</script>
+
+
+{% endblock %}

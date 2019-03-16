@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block css_files %}
+<link href="{{ static('css/public/areas.css') }}" rel="stylesheet">
+
+
+
+{%endblock%}
+
+{% block page_title %}Περιοχές{% endblock %}
+
+{% block meta_description %}online delivery{% endblock %}
+{% block keywords %}delivery, περίπτερο{% endblock %}
+
+
+{% block site_css %}
+<style type="text/css">
+	/*body {
+		background:url('/static/img/bg_areas.jpg') no-repeat center center fixed;
+	}*/
+	
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row">
+		
+		<div class="col-lg-12" id="head_areas">
+			Περιοχές
+		</div>
+	</div>
+
+	<div class="row" id="map_wrp">
+		<div class="col-lg-4">
+			<img class="img-responsive" src="{{ static('img/map.png') }}">
+		</div>
+		<div class="col-lg-8">
+			<h3>Περίπτερα από όλη την Ελλάδα</h3>
+			<p id="map_text">
+			Το δίκτυο των συνεργαζόμενων περιπτέρων και mini markets του e-peripteras.gr, ξεκίνησε από την Αθήνα και βαθμιαία επεκτείνεται σε όλη την Ελλάδα. Για περισσότερες πληροφορίες ή ερωτήσεις επικοινώνησε με το info@e-peripteras.gr
+			</p>
+		</div>
+	</div>
+
+	<div class="row" id="areas_row">
+		<div class="col-lg-12">
+			<ul id="areas-list">
+				<li class="areas-list-item">Αγία Βαρβάρα</li>
+				<li class="areas-list-item">Γκάζι</li>
+				<li class="areas-list-item">Καπανδρίτι</li>
+				<li class="areas-list-item">Μοσχάτο</li>
+				<li class="areas-list-item">Περιστέρι</li>
+				<li class="areas-list-item">Αγία Παρασκευή</li>
+				<li class="areas-list-item">Γκύζη</li>
+				<li class="areas-list-item">Καρέας</li>
+				<li class="areas-list-item">Μουσείο</li>
+				<li class="areas-list-item">Πετράλωνα</li>
+				<li class="areas-list-item">Άγιοι Ανάργυροι</li>
+				<li class="areas-list-item">Γλυκά Νερά</li>
+				<li class="areas-list-item">Κάτω Πατήσια</li>
+				<li class="areas-list-item">Νέα Ερυθραία</li>
+				<li class="areas-list-item">Πετρούπολη</li>
+				<li class="areas-list-item">Άγιος Δημήτριος</li>
+				<li class="areas-list-item">Γλυφάδα</li>
+				<li class="areas-list-item">Κεραμεικός</li>
+				<li class="areas-list-item">Νέα Ιωνία</li>
+				<li class="areas-list-item">Πεύκη</li>
+				<li class="areas-list-item">Άγιος Ιωάννης Ρέντη</li>
+				<li class="areas-list-item">Γουδί</li>
+				<li class="areas-list-item">Κερατσίνι</li>
+				<li class="areas-list-item">Νέα Μάκρη</li>
+				<li class="areas-list-item">Πικέρμι</li>
+				<li class="areas-list-item">Άγιος Στέφανος</li>
+				<li class="areas-list-item">Δάφνη</li>
+				<li class="areas-list-item">Κηφισιά</li>
+				<li class="areas-list-item">Νέα Πεντέλη</li>
+				<li class="areas-list-item">Πλάκα</li>
+				<li class="areas-list-item">Αθήνα</li>
+				<li class="areas-list-item">Διόνυσος</li>
+				<li class="areas-list-item">Κοκκινιά</li>
+				<li class="areas-list-item">Νεάπολη</li>
+				<li class="areas-list-item">Πολύγωνο</li>
+				<li class="areas-list-item">Αιγάλεω</li>
+				<li class="areas-list-item">Δραπετσώνα</li>
+				<li class="areas-list-item">Κολωνάκι</li>
+				<li class="areas-list-item">Νέα Σμύρνη</li>
+				<li class="areas-list-item">Πόρτο Ράφτη</li>
+				<li class="areas-list-item">Αίγινα</li>
+				<li class="areas-list-item">Δροσιά</li>
+				<li class="areas-list-item">Κολωνός</li>
+				<li class="areas-list-item">Νέα Φιλαδέλφεια</li>
+				<li class="areas-list-item">Ραφήνα</li>
+				<li class="areas-list-item">Άλιμος</li>
+				<li class="areas-list-item">Εκάλη</li>
+				<li class="areas-list-item">Κορυδαλλός</li>
+				<li class="areas-list-item">Νέα Φιλοθέη</li>
+				<li class="areas-list-item">Ριζούπολη</li>
+				<li class="areas-list-item">Αλσούπολη</li>
+				<li class="areas-list-item">Ελευσίνα</li>
+				<li class="areas-list-item">Κορωπί</li>
+				<li class="areas-list-item">Νέα Χαλκηδόνα</li>
+				<li class="areas-list-item">Ροδόπολη</li>
+				<li class="areas-list-item">Αμπελόκηποι</li>
+				<li class="areas-list-item">Ελληνικό</li>
+				<li class="areas-list-item">Κουκάκι</li>
+				<li class="areas-list-item">Νέος Βουτσάς</li>
+				<li class="areas-list-item">Ρουφ</li>
+				<li class="areas-list-item">Ανθούσα</li>
+				<li class="areas-list-item">Εξάρχεια</li>
+				<li class="areas-list-item">Κρυονέρι</li>
+				<li class="areas-list-item">Νέος Κόσμος</li>
+				<li class="areas-list-item">Σαλαμίνα</li>
+				<li class="areas-list-item">Άνοιξη</li>
+				<li class="areas-list-item">Ζεφύρι</li>
+				<li class="areas-list-item">Κυψέλη</li>
+				<li class="areas-list-item">Νέο Φάληρο</li>
+				<li class="areas-list-item">Σεπόλια</li>
+				<li class="areas-list-item">Άνω Λιόσια</li>
+				<li class="areas-list-item">Ζωγράφου</li>
+				<li class="areas-list-item">Λαγονήσι</li>
+				<li class="areas-list-item">Νέο Ψυχικό</li>
+				<li class="areas-list-item">Σκαραμαγκάς</li>
+				<li class="areas-list-item">Άνω Πατήσια</li>
+				<li class="areas-list-item">Ηλιούπολη</li>
+				<li class="areas-list-item">Λαμπρινή</li>
+				<li class="areas-list-item">Νίκαια</li>
+				<li class="areas-list-item">Σούνιο</li>
+				<li class="areas-list-item">Αργυρούπολη</li>
+				<li class="areas-list-item">Ηράκλειο</li>
+				<li class="areas-list-item">Λαύριο</li>
+				<li class="areas-list-item">Οινόη</li>
+				<li class="areas-list-item">Σπάτα</li>
+				<li class="areas-list-item">Αρτέμιδα</li>
+				<li class="areas-list-item">Θησείο</li>
+				<li class="areas-list-item">Λυκαβηττός</li>
+				<li class="areas-list-item">Παγκράτι</li>
+				<li class="areas-list-item">Σταμάτα</li>
+				<li class="areas-list-item">Ασπρόπυργος</li>
+				<li class="areas-list-item">Θρακομακεδόνες</li>
+				<li class="areas-list-item">Λυκόβρυση</li>
+				<li class="areas-list-item">Παιανία</li>
+				<li class="areas-list-item">Ταμπούρια</li>
+				<li class="areas-list-item">Αχαρνές</li>
+				<li class="areas-list-item">Ίλιον</li>
+				<li class="areas-list-item">Μακρυγιάννη</li>
+				<li class="areas-list-item">Παλαιό Φάληρο</li>
+				<li class="areas-list-item">Ταύρος</li>
+				<li class="areas-list-item">Βάρη</li>
+				<li class="areas-list-item">Ιλίσια</li>
+				<li class="areas-list-item">Μανιάτικα</li>
+				<li class="areas-list-item">Παλαιό Ψυχικό</li>
+				<li class="areas-list-item">Υμηττός</li>
+				<li class="areas-list-item">Βάρκιζα</li>
+				<li class="areas-list-item">Καισαριανή</li>
+				<li class="areas-list-item">Μαρκόπουλο</li>
+				<li class="areas-list-item">Παλλήνη</li>
+				<li class="areas-list-item">Φιλοθέη</li>
+				<li class="areas-list-item">Βοτανικός</li>
+				<li class="areas-list-item">Καλαμάκι</li>
+				<li class="areas-list-item">Μαρούσι</li>
+				<li class="areas-list-item">Παπάγου</li>
+				<li class="areas-list-item">Φίξ</li>
+				<li class="areas-list-item">Βούλα</li>
+				<li class="areas-list-item">Καλλιθέα</li>
+				<li class="areas-list-item">Μέγαρα</li>
+				<li class="areas-list-item">Πατήσια</li>
+				<li class="areas-list-item">Χαϊδάρι</li>
+				<li class="areas-list-item">Βουλιαγμένη</li>
+				<li class="areas-list-item">Καλλίπολη</li>
+				<li class="areas-list-item">Μελίσσια</li>
+				<li class="areas-list-item">Πεδίον Άρεως</li>
+				<li class="areas-list-item">Χαλάνδρι</li>
+				<li class="areas-list-item">Βριλήσσια</li>
+				<li class="areas-list-item">Καλύβια</li>
+				<li class="areas-list-item">Μεταμόρφωση</li>
+				<li class="areas-list-item">Πειραιάς</li>
+				<li class="areas-list-item">Χολαργός</li>
+				<li class="areas-list-item">Βύρωνας</li>
+				<li class="areas-list-item">Καματερό</li>
+				<li class="areas-list-item">Μεταξουργείο</li>
+				<li class="areas-list-item">Πεντέλη</li>
+				<li class="areas-list-item">Ψυρρή</li>
+				<li class="areas-list-item">Γαλάτσι</li>
+				<li class="areas-list-item">Καμίνια</li>
+				<li class="areas-list-item">Μοναστηράκι</li>
+				<li class="areas-list-item">Πέραμα</li>
+				<li class="areas-list-item">Ψυχικό</li>
+				<li class="areas-list-item">Γέρακας</li>
+				<li class="areas-list-item">Κάντζα</li>
+			</ul>
+			<br><br><br>
+		</div>
+	</div>
+
+
+</div>
+
+{% endblock %}
+
+{% block site_js %}
+	<script type="text/javascript">
+
+		$(document).ready(function(){	
+
+		});
+	</script>
+
+
+{% endblock %}
+

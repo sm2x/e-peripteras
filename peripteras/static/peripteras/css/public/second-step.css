@@ -1,0 +1,73 @@
+.wrp{
+	background-color: #fff;
+	min-height: 650px;
+	margin-top: 100px;
+	margin-bottom: 330px;
+}
+
+
+#address input{
+	border-color: #8B0000;
+	border-radius: 0px;
+	font-size: 15px;
+}
+
+#continue-btn{ 
+    margin: 40px auto;
+    border-radius: 20px;
+    font-size: 17px;
+    padding-left: 23px;
+    padding-right: 23px;
+    color: #2f2f2f;
+    background-color: #fbbf58;
+    border-color: transparent;
+    -webkit-transition:all 100ms linear;
+    -moz-transition:all 100ms linear;
+    -ms-transition:all 100ms linear;
+    -o-transition:all 100ms linear;
+    transition:all 100ms linear;
+    max-width: 200px;
+}
+
+#continue-btn:hover{
+    border-color:transparent; 
+    color:white;
+}
+
+.bold{
+	font-weight: bold;
+}
+
+.form-wrp{
+    display: block;
+    margin: 0px auto;
+    max-width: 600px;
+}
+
+#address{
+    margin-top: 100px;
+}
+
+#address label {
+    display: inline-block;
+}
+
+.left{
+    width: 150px;
+    font-size: 25px;
+    display: inline-block;
+    vertical-align: bottom;
+    color:#515151;
+}
+
+.right{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 260px;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+    margin-top: 40px;
+}
